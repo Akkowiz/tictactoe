@@ -1,14 +1,13 @@
 export default class Gameboard {
-	constructor() {
-		this.rows = 3;
-		this.cols = 3;
-	}
+	constructor() {}
+
 	createField() {
 		const playField = document.getElementById("playfield");
-		const totalFields = this.rows * this.cols;
+		const totalFields = 9;
 		for (let i = 0; i < totalFields; i++) {
 			let newElement = document.createElement("div");
 			newElement.textContent = i + 1;
+			newElement.id = i + 1;
 			newElement.className = `field-${i + 1}`;
 			playField.appendChild(newElement);
 		}
