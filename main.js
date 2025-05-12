@@ -12,14 +12,13 @@ startButton.addEventListener("click", (event) => {
 	const { player1, player2 } = player.getPlayers();
 	const gameBoard = new Gameboard();
 	gameBoard.createField();
-});
 
-const game = new Game();
-const playField = document.getElementById("playfield");
-playField.addEventListener("click", (event) => {
-	game.setField(event.target.id);
-	console.log("player 1 fields: ", game.p1Fields);
-	console.log("player 2 fields: ", game.p2Fields);
-});
+	const game = new Game(player1.name, player2.name);
+	const playField = document.getElementById("playfield");
+	playField.addEventListener("click", eventClick);
 
-// gameboard -> check the fields
+	function eventClick(event) {
+		game.setField(event.target.id);
+		if (game.gameOver) playField.removeEventListener("click", eventClick);
+	}
+});

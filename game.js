@@ -1,8 +1,11 @@
 export default class Game {
-	constructor() {
+	constructor(player1, player2) {
 		this.turn = 0;
 		this.p1Fields = [];
 		this.p2Fields = [];
+		this.gameOver = false;
+		this.player1 = player1;
+		this.player2 = player2;
 	}
 
 	winningCombinations = [
@@ -36,11 +39,24 @@ export default class Game {
 				) {
 					winCondition++;
 				}
-				if (winCondition <= 3) {
-					return console.log("xD won");
+				if (winCondition === 3) {
+					const playField = document.getElementById("playfield");
+					this.hasEnded();
+					const winner =
+						this.turn % 2 === 0 ? this.player1 : this.player2;
+					const endScreen = document.createElement("p");
+					endScreen.textContent = `${winner} won after ${
+						this.turn + 1
+					} turns!`;
+					endScreen.id = "winText";
+					playField.appendChild(endScreen);
 				}
 			});
 		});
+	}
+
+	hasEnded() {
+		this.gameOver = true;
 	}
 
 	setField(selectedField) {
